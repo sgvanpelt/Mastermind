@@ -1,0 +1,133 @@
+{% extends "layout.html" %}
+{% block title %}
+    <div class="container pt-3">
+        <div class="row d-flex justify-content-center">
+           <h4>Player: {{ session['player'] }}</h4>
+        </div>
+        <hr>
+    </div>
+{% endblock %}
+
+{% block body %}
+    {% if win %}
+        <style>
+            body {
+                background-image: url("https://jooinn.com/images/thumbs-up-20.png")
+            }
+            .container{
+                background-color: white;
+            }
+        </style>
+        <div class="container">
+            <div class="row d-flex justify-content-center" style="background-color: white">
+                <h2>Congratulations you have won!</h2>
+            </div>
+            <div class="row d-flex justify-content-center" style="background-color: white">
+                <form method="post" action="/win/">
+                     <span class="d-flex justify-content-center">
+                        <button type="submit" class="btn btn-primary" style="width: 200px;">Go Back</button>
+                     </span>
+                </form>
+            </div>
+        </div>
+    {% endif %}
+    {% if not win and lose %}
+        <style>
+            body {
+                background-image: url("https://images.hdqwalls.com/download/game-over-typography-pic-1920x1080.jpg")
+            }
+            .container{
+                background-color: white;
+            }
+        </style>
+        <div class="container">
+            <div class="row d-flex justify-content-center" style="background-color: white">
+                <h2>Unfortunately you lost!</h2>
+            </div>
+            <div class="row d-flex justify-content-center" style="background-color: white">
+                <form method="post" action="/lose/">
+                     <span class="d-flex justify-content-center">
+                        <button type="submit" class="btn btn-primary" style="width: 200px;">Go Back</button>
+                     </span>
+                </form>
+            </div>
+        </div>
+    {% endif %}
+    {% if not win and not lose %}
+    <div class="container">
+        <div class="row d-flex justify-content-center">
+            <div style="overflow-y: scroll; height:750px; width: 1200px" class="d-flex justify-content-center">
+            <table>
+                <tr>
+                    {% for i in range(session['amount']) %}
+                        <td>
+
+                        </td>
+                    {% endfor %}
+                    <td>
+
+                    </td>
+
+                </tr>
+                {% for i in session['tries'][::-1] %}
+                    <tr>
+                        {% for j in i[0] %}
+                            <td>
+                                <div style="background-color: {{ j }}" class="dot"></div>
+                                <p></p>
+                            </td>
+                        {% endfor %}
+                        <td style="border: 1px solid black">
+                            <div class="row pl-2">
+                                {% for u in range(i[1][0]) %}
+                                    <div style="background-color: white; border: 1px solid black; width: 20px; height: 20px; border-radius: 50%;" class="dot2"></div>
+                                {% endfor %}
+                                {% for u in range(i[1][1]) %}
+                                    <div style="background-color: black; border: 1px solid black; width: 20px; height: 20px; border-radius: 50%;" class="dot2"></div>
+                                {% endfor %}
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+        </div>
+        <div class="d-flex justify-content-center">
+        <form method="post" action="/game/">
+                <table>
+                    <tr>
+                        {% for i in range(session['amount']) %}
+                            <td name="color{{ i }}">
+                                <select id="{{ i }}" name="{{ i }}">
+                                    {% for i in range(session['color_amount']) %}
+                                        <option value="{{ Color(i).label }}">
+                                            {{ Color(i).name }}
+                                        </option>
+                                    {% endfor %}
+                                </select>
+                            </td>
+                        {% endfor %}
+                    </tr>
+                </table>
+                <span class="d-flex justify-content-center">
+                    <button type="submit" class="btn btn-primary" id="checkbutton">Guess</button>
+                </span>
+        </form>
+        </div>
+    </div>
+    {% if cheating %}
+    <div class="container">
+        <div class="row">
+            <table>
+                <h2> Answer: </h2>
+                <tr>
+                    {% for i in range(session['answer'] | count) %}
+                    <div style="background-color: {{session['answer'][i]}}" class="dot"></div>
+                    {% endfor %}
+                </tr>
+            </table>
+        </div>
+    </div>
+    {% endif %}
+    {% endif %}
+{% endblock %}

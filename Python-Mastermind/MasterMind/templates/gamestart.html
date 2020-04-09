@@ -1,0 +1,56 @@
+{% extends "layout.html" %}
+
+    {% block title %}
+        <div class="container mt-5">
+            <div class="row d-flex justify-content-center">
+                <h1>Start a new game</h1>
+            </div>
+        </div>
+    {% endblock %}
+
+{% block body %}
+    <form action="/gamestart/" method="post">
+        <div class="container">
+            <div class="row">
+                <table style="text-align: center">
+                    <tr>
+                        <td>Amount of colors</td>
+                        <td>Amount of positions</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="range" name="color_amount" id="color_amount" value="6" min="6" max="10"
+                                   oninput="color_amount_out.value = color_amount.value"></td>
+                        <td>
+                            <input type="range" name="amount" id="amount" value="4" min="4" max="10"
+                                   oninput="amount_out.value = amount.value"></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <output name="color_amount_out" id="color_amount_out">6</output>
+                        </td>
+                        <td>
+                            <output name="amount_out" id="amount_out">4</output>
+                        </td>
+                    </tr>
+                </table>
+
+                <br>
+
+                <span class="d-flex justify-content-center">
+                    <input type="checkbox" name="doubles" style="height: 25px;">
+                        Play with double colors enabled
+                </span>
+                <span class="d-flex justify-content-center">
+                    <input type="checkbox" name="cheat" style="height: 25px;">
+                        Play with cheat function enabled
+                </span>
+                <br>
+
+                <span class="d-flex justify-content-center">
+                    <button type="submit" style="width: 200px" class="btn btn-primary">Begin</button>
+                </span>
+            </div>
+        </div>
+    </form>
+{% endblock %}

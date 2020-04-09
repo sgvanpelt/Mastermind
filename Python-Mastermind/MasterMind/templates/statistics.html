@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+    {% block title %}
+        <div class="container mt-5">
+            <div class="row d-flex justify-content-center">
+                <h1>Statistics of {{ session['player'] }}</h1>
+            </div>
+        </div>
+    {% endblock %}
+{% block body %}
+    <div class="container">
+        <div class="row">
+
+                <table style="text-align: left">
+
+                    <tr>
+                        <th>Average amount of turns to finishing</th>
+                        <th>Amount of finished games</th>
+                        <th>Amount of unfinished games</th>
+                        <th>Last played game date</th>
+                        <th>Amount of times player has cheated</th>
+                    </tr>
+
+                    <tr>
+                        <td>{{ d1 }}</td> <!--Average amount of turns to finishing-->
+                        <td>{{ d2 }}</td> <!--Amount of finished games-->
+                        <td>{{ d3 }}</td> <!--Amount of unfinished games-->
+                        <td>{{ d4 }}</td> <!--Last played game date-->
+                        <td>{{ d5 }}</td> <!--Amount of times player has cheated-->
+                    </tr>
+
+                </table>
+        </div>
+    </div>
+{% endblock %}
